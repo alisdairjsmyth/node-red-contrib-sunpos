@@ -1,0 +1,23 @@
+{
+  "name": "node-red-contrib-sunpos",
+  "version": "0.0.1",
+  "description": "A Node-RED node that provides the position of the sun",
+  "dependencies": {
+    "suncalc": "1.6.*"
+  },
+  "repository" : {
+    "type": "git",
+    "url": "https://github.com/alisdairjsmyth/node-red-contrib-sunpos"
+  },
+  "license": "Apache-2.0",
+  "keywords": [ "node-red", "sunpos", "suncalc" ],
+  "node-red": {
+    "nodes": {
+      "sunpos": "sunpos/sunpos.js"
+    }
+  },
+  "author": {
+    "name": "Alisdair Smyth",
+    "email": "alisdair.smyth@gmail.com"
+  }
+}
