@@ -49,7 +49,13 @@ module.exports = function(RED) {
             }
 
             msg.topic = "sun";
-            msg.payload = {sunInSky: sunInSky, altitudeRadians: sunPosition.altitude, altitudeDegrees: altitudeDegrees, azimuthRadians: sunPosition.azimuth, azimuthDegrees: azimuthDegrees};
+            msg.payload = {
+                sunInSky: sunInSky, 
+                altitudeRadians: sunPosition.altitude, 
+                altitudeDegrees: altitudeDegrees, 
+                azimuthRadians: sunPosition.azimuth, 
+                azimuthDegrees: azimuthDegrees
+            };
 
             node.send(msg);
         });
