@@ -14,7 +14,7 @@ Run the following command in the root directory of your Node-RED install
 Usage
 -----
 
-Uses the <i><a href = "https://github.com/mourner/suncalc" target="_new">suncalc</a><i> npm to generate an output with the position of the sun at a given location.
+Uses the <i><a href = "https://github.com/mourner/suncalc" target="_new">suncalc</a></i> npm to generate an output with the position of the sun at a given location.
 
 The Node emits a <b>msg.payload</b> with the following properties:
 * sunInSky: boolean indicating whether sun is above the horizon
