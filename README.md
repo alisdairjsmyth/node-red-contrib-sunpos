@@ -1,4 +1,4 @@
-node-red-node-sunpos
+node-red-contrib-sunpos
 =====================
 
 A <a href="http://nodered.org" target="_new">Node-RED</a> node to calculate the position of the sun at a given location.
@@ -9,7 +9,6 @@ Install
 Run the following command in the root directory of your Node-RED install
 
     npm install node-red-node-sunpos
-
 
 Usage
 -----
