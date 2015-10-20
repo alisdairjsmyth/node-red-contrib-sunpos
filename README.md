@@ -1,4 +1,4 @@
-node-red-node-pos
+node-red-node-sunpos
 =====================
 
 A <a href="http://nodered.org" target="_new">Node-RED</a> node to calculate the position of the sun at a given location.
