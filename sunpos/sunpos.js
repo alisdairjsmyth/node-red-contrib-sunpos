@@ -21,45 +21,50 @@ module.exports = function(RED) {
         return Date.UTC(t.getUTCFullYear(),t.getUTCMonth(),t.getUTCDate(),t.getUTCHours(),t.getUTCMinutes());
     }
 
-    function SunNode(n) {
-        RED.nodes.createNode(this,n);
-        this.lat = n.lat;
-        this.lon = n.lon;
-        this.start = n.start;
-        this.end = n.end;
-        var node = this;
+    function getSunPosition(config) {
+        RED.nodes.createNode(this, config);
+
+        var stConfig = {
+            start: config.start,
+            end:   config.end
+        };
+
+        var location = {
+            lat:   config.lat,
+            lon:   config.lon
+        };
+        var node     = this;
 
         this.on("input", function(msg) {
-            var now = new Date();
-            var sunPosition = SunCalc.getPosition(now, node.lat, node.lon);
-            var sunTimes = SunCalc.getTimes(now, node.lat, node.lon);
-            var altitudeDegrees = 180/Math.PI*sunPosition.altitude;
-            var azimuthDegrees = 180 + 180/Math.PI*sunPosition.azimuth;
-            var sunInSky;
+            var now             = new Date();
+            var sunPosition     = SunCalc.getPosition(now, location.lat, location.lon);
+            var sunTimes        = SunCalc.getTimes   (now, location.lat, location.lon);
+            var altitudeDegrees = 180 / Math.PI       * sunPosition.altitude;
+            var azimuthDegrees  = 180 + 180 / Math.PI * sunPosition.azimuth;
 
-            var nowMillis = CalculateMillis(now);
-            var startMillis = CalculateMillis(sunTimes[node.start]);
-            var endMillis = CalculateMillis(sunTimes[node.end]);
-            if ((nowMillis > startMillis) & (nowMillis < endMillis)) {
-                sunInSky = 1;
-                node.status({fill:"yellow",shape:"dot",text:"day"});
+            var nowMillis   = CalculateMillis(now);
+            var startMillis = CalculateMillis(sunTimes[stConfig.start]);
+            var endMillis   = CalculateMillis(sunTimes[stConfig.end]);
+            var sunInSky = (((nowMillis > startMillis) && (nowMillis < endMillis)));
+            if (sunInSky) {
+                node.status({fill:"yellow", shape: "dot", text: "day"});
             } else {
-                sunInSky = 0;
-                node.status({fill:"blue",shape:"dot",text:"night"});
+                node.status({fill:"blue", shape: "dot", text: "night"});
+
             }
 
-            msg.topic = "sun";
             msg.payload = {
-                sunInSky: sunInSky, 
-                altitudeRadians: sunPosition.altitude, 
-                altitudeDegrees: altitudeDegrees, 
-                azimuthRadians: sunPosition.azimuth, 
-                azimuthDegrees: azimuthDegrees
+                sunInSky:        sunInSky,
+                altitude:        altitudeDegrees,
+                azimuth:         azimuthDegrees,
+                altitudeRadians: sunPosition.altitude,
+                azimuthRadians:  sunPosition.azimuth
             };
-
+            msg.location = location;
+            msg.topic    = "sun";
+            msg.time     = now;
             node.send(msg);
         });
     }
-
-    RED.nodes.registerType("sunpos",SunNode);
-}
+    RED.nodes.registerType("sunpos", getSunPosition);
+};

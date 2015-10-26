@@ -1,12 +1,9 @@
 <!--
   Copyright 2015 Alisdair Smyth
-
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-
   http://www.apache.org/licenses/LICENSE-2.0
-
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,27 +48,27 @@
 </script>
 
 <script type="text/x-red" data-help-name="sunpos">
-    <p>Uses the <i><a href = "https://github.com/mourner/suncalc" target="_new">suncalc</a></i> module to calculate the current position of the sun at a given location.</p>
+    <p>Uses the suncalc module to calculate the current position of the sun at a given location.</p>
     <p>The node sets the following properties of <b>msg.payload</b>:</p>
     <ul>
         <li><b>sunInSky</b>: boolean indicating whether sun is above the horizon</li>
+        <li><b>altitude</b>: sun altitude above the horizon in degrees</li>
+        <li><b>azimuth</b>: sun azimuth in degrees, where 0 is North</li>
         <li><b>altitudeRadians</b>: sun altitude above the horizon in radians</li>
-        <li><b>altitudeDegrees</b>: sun altitude above the horizon in degrees</li>
         <li><b>azimuthRadians</b>: sun azimuth in radians, where 0 is South, a positive value is in the west and negative value in the east</li>
-        <li><b>azimuthDegrees</b>: sun azimuth in degrees, where 0 is North</li>
     </ul>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('sunpos',{
-        category: 'advanced-input',
+    RED.nodes.registerType("sunpos",{
+        category: "advanced-input",
         color:"#FFCC66",
         defaults: {
-            name: {value:""},
-            lat: {value:"", required:true, validate:RED.validators.number()},
-            lon: {value:"", required:true, validate:RED.validators.number()},
+            name:  {value:""},
+            lon:   {value:"",        required:true, validate:RED.validators.number() },
+            lat:   {value:"",        required:true, validate:RED.validators.number() },
             start: {value:"sunrise", required:true},
-            end: {value:"sunset", required:true}
+            end:   {value:"sunset",  required:true}
         },
         inputs: 1,
         outputs: 1,
@@ -84,13 +81,13 @@
         },
         oneditprepare: function() {
             if (($("#node-input-lat").val() === "") && ($("#node-input-lon").val() === "")) {
-               if ("geolocation" in navigator) {
-                   navigator.geolocation.getCurrentPosition(function(position) {
-                       $("#node-input-lat").val(Number(position.coords.latitude.toFixed(5)));
-                       $("#node-input-lon").val(Number(position.coords.longitude.toFixed(5)));
-                   });
-               }
-           }
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        $("#node-input-lat").val(Number(position.coords.latitude.toFixed(5)));
+                        $("#node-input-lon").val(Number(position.coords.longitude.toFixed(5)));
+                    });
+                }
+            }
         }
     });
 </script>
