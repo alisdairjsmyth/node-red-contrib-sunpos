@@ -42,9 +42,9 @@ module.exports = function(RED) {
             var altitudeDegrees = 180 / Math.PI       * sunPosition.altitude;
             var azimuthDegrees  = 180 + 180 / Math.PI * sunPosition.azimuth;
 
-            var nowMillis   = CalculateMillis(now);
-            var startMillis = CalculateMillis(sunTimes[stConfig.start]);
-            var endMillis   = CalculateMillis(sunTimes[stConfig.end]);
+            var nowMillis   = new CalculateMillis(now);
+            var startMillis = new CalculateMillis(sunTimes[stConfig.start]);
+            var endMillis   = new CalculateMillis(sunTimes[stConfig.end]);
             var sunInSky = (((nowMillis > startMillis) && (nowMillis < endMillis)));
             if (sunInSky) {
                 node.status({fill:"yellow", shape: "dot", text: "day"});
