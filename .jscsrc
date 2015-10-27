@@ -1,0 +1,12 @@
+{
+    "fileExtensions": [ ".js", "jscs" ],
+    "excludeFiles": [ "node_modules/**" ],
+    "validateIndentation": 4,
+    "requireCurlyBraces": true,
+    "disallowMixedSpacesAndTabs": true,
+    "disallowMultipleSpaces": {"allowEOLComments": true},
+    "requireSpaceBeforeBlockStatements": 1,
+    //"requireSemicolons": true,
+    //"validateParameterSeparator": ", ",
+    "requireSpaceAfterKeywords": ["do","for","if","else","switch","case","try","while"]
+}
