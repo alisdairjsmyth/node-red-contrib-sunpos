@@ -17,10 +17,6 @@ module.exports = function(RED) {
     "use strict";
     var SunCalc = require('suncalc');
 
-    function CalculateMillis(t) {
-        return Date.UTC(t.getUTCFullYear(),t.getUTCMonth(),t.getUTCDate(),t.getUTCHours(),t.getUTCMinutes());
-    }
-
     function getSunPosition(config) {
         RED.nodes.createNode(this, config);
 
@@ -41,10 +37,11 @@ module.exports = function(RED) {
             var sunTimes        = SunCalc.getTimes   (now, location.lat, location.lon);
             var altitudeDegrees = 180 / Math.PI       * sunPosition.altitude;
             var azimuthDegrees  = 180 + 180 / Math.PI * sunPosition.azimuth;
-
-            var nowMillis   = new CalculateMillis(now);
-            var startMillis = new CalculateMillis(sunTimes[stConfig.start]);
-            var endMillis   = new CalculateMillis(sunTimes[stConfig.end]);
+			
+            var nowMillis   = now.getTime();
+            var startMillis = sunTimes[stConfig.start].getTime();
+            var endMillis   = sunTimes[stConfig.end].getTime();
+			
             var sunInSky = (((nowMillis > startMillis) && (nowMillis < endMillis)));
             if (sunInSky) {
                 node.status({fill:"yellow", shape: "dot", text: "day"});
