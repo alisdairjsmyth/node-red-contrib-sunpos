@@ -32,16 +32,17 @@ module.exports = function(RED) {
         var node     = this;
 
         this.on("input", function(msg) {
-            var now             = new Date();
+            var now = (typeof msg.time != "undefined") ? new Date(msg.time) : new Date();
+
             var sunPosition     = SunCalc.getPosition(now, location.lat, location.lon);
             var sunTimes        = SunCalc.getTimes   (now, location.lat, location.lon);
             var altitudeDegrees = 180 / Math.PI       * sunPosition.altitude;
             var azimuthDegrees  = 180 + 180 / Math.PI * sunPosition.azimuth;
-			
+
             var nowMillis   = now.getTime();
             var startMillis = sunTimes[stConfig.start].getTime();
             var endMillis   = sunTimes[stConfig.end].getTime();
-			
+
             var sunInSky = (((nowMillis > startMillis) && (nowMillis < endMillis)));
             if (sunInSky) {
                 node.status({fill:"yellow", shape: "dot", text: "day"});
