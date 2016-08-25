@@ -22,7 +22,9 @@ module.exports = function(RED) {
 
         var stConfig = {
             start: config.start,
-            end:   config.end
+            startOffset: config.startoffset,
+            end: config.end,
+            endOffset:   config.endoffset
         };
 
         var location = {
@@ -40,8 +42,8 @@ module.exports = function(RED) {
             var azimuthDegrees  = 180 + 180 / Math.PI * sunPosition.azimuth;
 
             var nowMillis   = now.getTime();
-            var startMillis = sunTimes[stConfig.start].getTime();
-            var endMillis   = sunTimes[stConfig.end].getTime();
+            var startMillis = sunTimes[stConfig.start].getTime() + (stConfig.startOffset * 60000);
+            var endMillis   = sunTimes[stConfig.end].getTime() + (stConfig.endOffset * 60000);
 
             var sunInSky = (((nowMillis > startMillis) && (nowMillis < endMillis)));
             if (sunInSky) {
