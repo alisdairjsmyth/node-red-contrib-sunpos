@@ -21,9 +21,9 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
 
         var stConfig = {
-            start: config.start,
+            start:       config.start,
             startOffset: config.startoffset,
-            end: config.end,
+            end:         config.end,
             endOffset:   config.endoffset
         };
 
@@ -43,19 +43,19 @@ module.exports = function(RED) {
 
             var nowMillis   = now.getTime();
             var startMillis = sunTimes[stConfig.start].getTime() + (stConfig.startOffset * 60000);
-            var endMillis   = sunTimes[stConfig.end].getTime() + (stConfig.endOffset * 60000);
+            var endMillis   = sunTimes[stConfig.end].getTime()   + (stConfig.endOffset * 60000);
 
             var sunInSky = (((nowMillis > startMillis) && (nowMillis < endMillis)));
             if (sunInSky) {
                 node.status({
-					fill:"yellow", 
-					shape: "dot", 
-					text: "day - start: " + new Date(startMillis).toLocaleTimeString() + "; end: " + new Date(endMillis).toLocaleTimeString()
+					fill:  "yellow",
+					shape: "dot",
+					text:  "day - start: " + new Date(startMillis).toLocaleTimeString() + "; end: " + new Date(endMillis).toLocaleTimeString()
 				});
             } else {
                 node.status({
-					fill:"blue", 
-					shape: "dot", 
+					fill:"blue",
+					shape: "dot",
 					text: "night - start: " + new Date(endMillis).toLocaleTimeString() + "; end: " + new Date(startMillis).toLocaleTimeString()
 				});
             }
