@@ -1,17 +1,15 @@
-node-red-contrib-sunpos
-=====================
+# node-red-contrib-sunpos
+[![npm version](https://badge.fury.io/js/node-red-contrib-sunpos.svg)](https://badge.fury.io/js/node-red-contrib-sunpos)
 
 A <a href="http://nodered.org" target="_new">Node-RED</a> node to calculate the position of the sun at a given location.
 
-Install
--------
+## Install
 
 Run the following command in the root directory of your Node-RED install
 
     npm install node-red-contrib-sunpos
 
-Usage
------
+## Usage
 
 This node calculates the position of the sun at a given location.  It is configured with the following properties:
 * <b>lat</b>: latitude of the location
@@ -34,7 +32,6 @@ The node also sets <b>msg.location</b> with the coordinates of the location and 
 
 The node also reports its status within the Node-RED flow editor, using colour to indicate whether it is currently considered daylight hours.
 
-Credit
-------
+## Credit
 
 This Node is based on, and has used code from, another node-RED Node called <a href="https://www.npmjs.com/package/node-red-node-suncalc">suncalc</a> published by <a href="https://www.npmjs.com/~dceejay">dceejay</a>

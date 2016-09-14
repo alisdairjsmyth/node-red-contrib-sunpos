@@ -1,5 +1,5 @@
 <!--
-  Copyright 2015 Alisdair Smyth
+  Copyright 2015, 2016 Alisdair Smyth
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -12,15 +12,15 @@
 -->
 <script type="text/x-red" data-template-name="sunpos">
     <div class="form-row">
-        <label for="node-input-lat"><i class="fa fa-globe"></i> Latitude</label>
-        <input type="text" id="node-input-lat" placeholder="51.025">
+        <label for="node-input-lat"><i class="fa fa-globe"></i> <span data-i18n="sunpos.label.lat"></span></label>
+        <input type="text" id="node-input-lat" data-i18n="[placeholder]sunpos.placeholder.lat">
     </div>
     <div class="form-row">
-        <label for="node-input-lon"><i class="fa fa-globe"></i> Longitude</label>
-        <input type="text" id="node-input-lon" placeholder="-1.4">
+        <label for="node-input-lon"><i class="fa fa-globe"></i> <span data-i18n="sunpos.label.lon"></span></label>
+        <input type="text" id="node-input-lon" data-i18n="[placeholder]sunpos.placeholder.lon">
     </div>
     <div class="form-row">
-        <label for="node-input-start"><i class="fa fa-clock-o"></i> Start</label>
+        <label for="node-input-start"><i class="fa fa-clock-o"></i> <span data-i18n="sunpos.label.start"></span></label>
         <select id="node-input-start" style='width:70%'>
             <option value="sunrise">Sunrise</option>
             <option value="sunriseEnd">Sunrise end</option>
@@ -31,11 +31,11 @@
         </select>
     </div>
 	<div class="form-row">
-        <label for="node-input-startoffset"><i class="fa fa-clock-o"></i> Start Offset</label>
-        <input type="number" id="node-input-startoffset" placeholder="0">
+        <label for="node-input-startoffset"><i class="fa fa-clock-o"></i> <span data-i18n="sunpos.label.startoffset"></span></label>
+        <input type="number" id="node-input-startoffset" data-i18n="[placeholder]sunpos.placeholder.startoffset">
     </div>
     <div class="form-row">
-        <label for="node-input-end"><i class="fa fa-clock-o"></i> End</label>
+        <label for="node-input-end"><i class="fa fa-clock-o"></i> <span data-i18n="sunpos.label.end"></span></label>
         <select id="node-input-end" style='width:70%'>
             <option value="sunset">Sunset, civil twilight starts</option>
             <option value="sunsetStart">Sunset start</option>
@@ -46,30 +46,30 @@
         </select>
     </div>
 	<div class="form-row">
-        <label for="node-input-endoffset"><i class="fa fa-clock-o"></i> End Offset</label>
-        <input type="number" id="node-input-endoffset" placeholder="0">
+        <label for="node-input-endoffset"><i class="fa fa-clock-o"></i> <span data-i18n="sunpos.label.endoffset"></span></label>
+        <input type="number" id="node-input-endoffset" data-i18n="[placeholder]sunpos.placeholder.endoffset">
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="sunpos.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]sunpos.placeholder.name">
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="sunpos">
-    <p>Uses the suncalc module to calculate the current position of the sun at a given location.</p>
+    <p>Uses the <b>suncalc</b> module to calculate the current position of the sun at a given location.</p>
     <p>The node sets the following properties of <b>msg.payload</b>:</p>
     <ul>
-        <li><b>sunInSky</b>: boolean indicating whether sun is above the horizon</li>
-        <li><b>altitude</b>: sun altitude above the horizon in degrees</li>
-        <li><b>azimuth</b>: sun azimuth in degrees, where 0 is North</li>
-        <li><b>altitudeRadians</b>: sun altitude above the horizon in radians</li>
-        <li><b>azimuthRadians</b>: sun azimuth in radians, where 0 is South, a positive value is in the west and negative value in the east</li>
+        <li><code>sunInSky</code>: boolean indicating whether sun is above the horizon</li>
+        <li><code>altitude</code>: sun altitude above the horizon in degrees</li>
+        <li><code>azimuth</code>: sun azimuth in degrees, where 0 is North</li>
+        <li><code>altitudeRadians</code>: sun altitude above the horizon in radians</li>
+        <li><code>azimuthRadians</code>: sun azimuth in radians, where 0 is South, a positive value is in the west and negative value in the east</li>
     </ul>
-	<p>The start and end time can have an offset specified in minutes.</p>
-	<ul>
-		<li>A negative number brings the time forward. E.g. if the time is sunset and offset is -60, a message will be generated 60 minutes before sunset.</li>
-		<li>A positive number delays the time by the specified number of minutes</li>
-	</ul>
+    <p>The start and end time can have an offset specified in minutes.</p>
+    <ul>
+        <li>A negative number brings the time forward. E.g. if the time is sunset and offset is -60, a message will be generated 60 minutes before sunset.</li>
+        <li>A positive number delays the time by the specified number of minutes</li>
+    </ul>
 </script>
 
 <script type="text/javascript">

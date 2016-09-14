@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Alisdair Smyth
+ * Copyright 2015, 2016 Alisdair Smyth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,13 +50,19 @@ module.exports = function(RED) {
                 node.status({
 					fill:  "yellow",
 					shape: "dot",
-					text:  "day - start: " + new Date(startMillis).toLocaleTimeString() + "; end: " + new Date(endMillis).toLocaleTimeString()
+					text:  RED._("sunpos.status.node-status-day") +
+                           new Date(startMillis).toLocaleTimeString() +
+                           RED._("sunpos.status.node-status-end") +
+                           new Date(endMillis).toLocaleTimeString()
 				});
             } else {
                 node.status({
 					fill:"blue",
 					shape: "dot",
-					text: "night - start: " + new Date(endMillis).toLocaleTimeString() + "; end: " + new Date(startMillis).toLocaleTimeString()
+					text: RED._("sunpos.status.node-status-night") +
+                          new Date(endMillis).toLocaleTimeString() +
+                          RED._("sunpos.status.node-status-end") +
+                          new Date(startMillis).toLocaleTimeString()
 				});
             }
 
