@@ -25,10 +25,5 @@
     "email": "alisdair.smyth@gmail.com"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.11.3",
-    "grunt-jscs": "^2.2.0",
-    "grunt-lint-inline": "^0.4.4",
-    "grunt-simple-mocha": "^0.4.0"
   }
 }
