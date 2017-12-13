@@ -14,70 +14,75 @@
  * limitations under the License.
  **/
 module.exports = function(RED) {
-    "use strict";
-    var SunCalc = require('suncalc');
+  "use strict";
+  var SunCalc = require("suncalc");
 
-    function getSunPosition(config) {
-        RED.nodes.createNode(this, config);
+  function getSunPosition(config) {
+    RED.nodes.createNode(this, config);
 
-        var stConfig = {
-            start:       config.start,
-            startOffset: config.startoffset,
-            end:         config.end,
-            endOffset:   config.endoffset
-        };
+    var stConfig = {
+      start: config.start,
+      startOffset: config.startoffset,
+      end: config.end,
+      endOffset: config.endoffset
+    };
 
-        var location = {
-            lat:   config.lat,
-            lon:   config.lon
-        };
-        var node     = this;
+    var location = {
+      lat: config.lat,
+      lon: config.lon
+    };
+    var node = this;
 
-        this.on("input", function(msg) {
-            var now = (typeof msg.time != "undefined") ? new Date(msg.time) : new Date();
+    this.on("input", function(msg) {
+      var now =
+        typeof msg.time != "undefined" ? new Date(msg.time) : new Date();
 
-            var sunPosition     = SunCalc.getPosition(now, location.lat, location.lon);
-            var sunTimes        = SunCalc.getTimes   (now, location.lat, location.lon);
-            var altitudeDegrees = 180 / Math.PI       * sunPosition.altitude;
-            var azimuthDegrees  = 180 + 180 / Math.PI * sunPosition.azimuth;
+      var sunPosition = SunCalc.getPosition(now, location.lat, location.lon);
+      var sunTimes = SunCalc.getTimes(now, location.lat, location.lon);
+      var altitudeDegrees = 180 / Math.PI * sunPosition.altitude;
+      var azimuthDegrees = 180 + 180 / Math.PI * sunPosition.azimuth;
 
-            var nowMillis   = now.getTime();
-            var startMillis = sunTimes[stConfig.start].getTime() + (stConfig.startOffset * 60000);
-            var endMillis   = sunTimes[stConfig.end].getTime()   + (stConfig.endOffset * 60000);
+      var nowMillis = now.getTime();
+      var startMillis =
+        sunTimes[stConfig.start].getTime() + stConfig.startOffset * 60000;
+      var endMillis =
+        sunTimes[stConfig.end].getTime() + stConfig.endOffset * 60000;
 
-            var sunInSky = (((nowMillis > startMillis) && (nowMillis < endMillis)));
-            if (sunInSky) {
-                node.status({
-					fill:  "yellow",
-					shape: "dot",
-					text:  RED._("sunpos.status.node-status-day") +
-                           new Date(startMillis).toLocaleTimeString() +
-                           RED._("sunpos.status.node-status-end") +
-                           new Date(endMillis).toLocaleTimeString()
-				});
-            } else {
-                node.status({
-					fill:"blue",
-					shape: "dot",
-					text: RED._("sunpos.status.node-status-night") +
-                          new Date(endMillis).toLocaleTimeString() +
-                          RED._("sunpos.status.node-status-end") +
-                          new Date(startMillis).toLocaleTimeString()
-				});
-            }
-
-            msg.payload = {
-                sunInSky:        sunInSky,
-                altitude:        altitudeDegrees,
-                azimuth:         azimuthDegrees,
-                altitudeRadians: sunPosition.altitude,
-                azimuthRadians:  sunPosition.azimuth
-            };
-            msg.location = location;
-            msg.topic    = "sun";
-            msg.time     = now;
-            node.send(msg);
+      var sunInSky = nowMillis > startMillis && nowMillis < endMillis;
+      if (sunInSky) {
+        node.status({
+          fill: "yellow",
+          shape: "dot",
+          text:
+            RED._("sunpos.status.node-status-day") +
+            new Date(startMillis).toLocaleTimeString() +
+            RED._("sunpos.status.node-status-end") +
+            new Date(endMillis).toLocaleTimeString()
         });
-    }
-    RED.nodes.registerType("sunpos", getSunPosition);
+      } else {
+        node.status({
+          fill: "blue",
+          shape: "dot",
+          text:
+            RED._("sunpos.status.node-status-night") +
+            new Date(endMillis).toLocaleTimeString() +
+            RED._("sunpos.status.node-status-end") +
+            new Date(startMillis).toLocaleTimeString()
+        });
+      }
+
+      msg.payload = {
+        sunInSky: sunInSky,
+        altitude: altitudeDegrees,
+        azimuth: azimuthDegrees,
+        altitudeRadians: sunPosition.altitude,
+        azimuthRadians: sunPosition.azimuth
+      };
+      msg.location = location;
+      msg.topic = "sun";
+      msg.time = now;
+      node.send(msg);
+    });
+  }
+  RED.nodes.registerType("sunpos", getSunPosition);
 };
