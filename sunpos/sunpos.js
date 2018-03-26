@@ -72,6 +72,8 @@ module.exports = function(RED) {
       }
 
       msg.payload = {
+        startTime: startMillis,
+        endTime: endMillis,
         sunInSky: sunInSky,
         altitude: altitudeDegrees,
         azimuth: azimuthDegrees,
@@ -80,17 +82,14 @@ module.exports = function(RED) {
       };
       msg.location = location;
       msg.topic = "sun";
-      msg.time = now;
-	  msg.sunTimes = sunTimes;
-	  
-	  for (var key in msg.sunTimes) {
-		if(msg.sunTimes[key]){
-			msg.sunTimes[key] = msg.sunTimes[key].getTime();
-		}
-	  }
-	  
-      msg.sunTimes.startMillis = sunTimes[stConfig.start] + stConfig.startOffset * 60000;
-      msg.sunTimes.endMillis = sunTimes[stConfig.end] + stConfig.endOffset * 60000;
+      msg.time = now.getTime();
+      msg.sunTimes = sunTimes;
+
+      for (var key in msg.sunTimes) {
+        if (msg.sunTimes[key]) {
+          msg.sunTimes[key] = msg.sunTimes[key].getTime();
+        }
+      }
 
       node.send(msg);
     });
