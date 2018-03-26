@@ -55,25 +55,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="sunpos">
-    <p>Uses the <b>suncalc</b> module to calculate the current position of the sun at a given location.</p>
-    <p>The node sets the following properties of <b>msg.payload</b>:</p>
-    <ul>
-        <li><code>startTime</code>: time of day that constitutes the start of daylight hours (inclusive of offset)</li>
-        <li><code>endTime</code>: time of day that constitutes the end of daylight hours (inclusive of offset)</li>
-        <li><code>sunInSky</code>: boolean indicating whether sun is above the horizon</li>
-        <li><code>altitude</code>: sun altitude above the horizon in degrees</li>
-        <li><code>azimuth</code>: sun azimuth in degrees, where 0 is North</li>
-        <li><code>altitudeRadians</code>: sun altitude above the horizon in radians</li>
-        <li><code>azimuthRadians</code>: sun azimuth in radians, where 0 is South, a positive value is in the west and negative value in the east</li>
-    </ul>
-    <p>The start and end time can have an offset specified in minutes.</p>
-    <ul>
-        <li>A negative number brings the time forward. E.g. if the time is sunset and offset is -60, a message will be generated 60 minutes before sunset.</li>
-        <li>A positive number delays the time by the specified number of minutes</li>
-    </ul>
-</script>
-
 <script type="text/javascript">
     RED.nodes.registerType("sunpos",{
         category: "advanced-input",
