@@ -59,6 +59,8 @@
     <p>Uses the <b>suncalc</b> module to calculate the current position of the sun at a given location.</p>
     <p>The node sets the following properties of <b>msg.payload</b>:</p>
     <ul>
+        <li><code>startTime</code>: time of day that constitutes the start of daylight hours (inclusive of offset)</li>
+        <li><code>endTime</code>: time of day that constitutes the end of daylight hours (inclusive of offset)</li>
         <li><code>sunInSky</code>: boolean indicating whether sun is above the horizon</li>
         <li><code>altitude</code>: sun altitude above the horizon in degrees</li>
         <li><code>azimuth</code>: sun azimuth in degrees, where 0 is North</li>

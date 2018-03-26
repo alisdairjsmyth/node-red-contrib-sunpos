@@ -22,13 +22,20 @@ This node calculates the position of the sun at a given location.  It is configu
 This node can optionally receive a time via an input message containing **msg.time** conforming to Javascript Date object, otherwise it will use the current time.
 
 This node emits a <b>msg.payload</b> with the following properties:
+* <b>startTime</b>: time of day that constitutes the start of daylight hours (inclusive of offset)
+* <b>endTime</b>: time of day that constitutes the end of daylight hours (inclusive of offset)
 * <b>sunInSky</b>: boolean value indicating whether it is currently considered daylight hours
 * <b>altitude</b>: altitude of the sun above the horizon in degrees
 * <b>azimuth</b>: azimuth of the sun in degrees, where 0 is North
 * <b>altitudeRadians</b>: altitude of the sun above the horizon in radians
 * <b>azimuthRadians</b>: azimuth of the sun in radians, where 0 is South, a positive value is in the west and negative value in the east
 
-The node also sets <b>msg.location</b> with the coordinates of the location and <b>msg.topic</b> to "sun".
+The node also sets the following <b>msg</b> properties:
+* <b>location</b>: with the coordinates of the location
+* <b>sunTimes</b>: an object containing various sunlight times
+* <b>topic</b>: to "sun"
+
+All times in <b>msg.payload</b> are milliseconds since midnight Jan 1 1970.
 
 The node also reports its status within the Node-RED flow editor, using colour to indicate whether it is currently considered daylight hours.
 
